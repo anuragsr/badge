@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html ng-app="fpApp" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Badge</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+  <style>
+    html, body, .ctn{
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .ctn{
+      background: rgba(127,127,127,.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ctn-inner{
+      text-align: center;
+      width: 150px;
+      height: 150px;
+      position: relative;
+    }
+
+    .ctn-inner img{
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .button-gr{
+      position: relative;
+      width: 300px;
+      top: -4rem;
+      transform: translateX(-25%);
+    }
+
+    .button-gr button{      
+      font-size: 1.5rem;
+    }
+
+    .ctn-bg-video {
+      position: absolute;
+      top: 0;
+      left:0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    video {
+      height: 100%;
+      width: 177.77777778vh; /* 100 * 16 / 9 */
+      min-width: 100%;
+      min-height: 56.25vw; /* 100 * 9 / 16 */
+    }
+  </style>
+</head>
+<body>
+  <div class="ctn-bg-video">
+    <video autoplay muted loop id="myVideo">
+      <source src="bg.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="ctn">
+    <div class="ctn-inner">
+      <img src="level1_small.png" />
+      <img src="level2_small.png" style="opacity:0;"/>
+      <div class="button-gr">        
+        <button id="an">Animate</button>
+        <button id="re">Revert</button>
+      </div>
+    </div>
+  </div>
+  <script src="jquery-3.3.1.min.js"></script>
+  <script src="TweenMax.min.js"></script>
+  <script>
+    $(function(){
+      
+      TweenMax.set($('.ctn-inner img')[1], {css:{ rotationZ: -180 }})
+
+      $("button#an").on("click", function(e){
+        e.preventDefault();
+        TweenMax.to($('.ctn-inner img')[0], .5, {
+          opacity: 0,
+          rotationZ: 180,
+          ease: Linear.easeNone          
+        })
+        
+        TweenMax.to($('.ctn-inner img')[1], .5, {
+          opacity: 1,
+          rotationZ: 0,
+          ease: Linear.easeNone          
+        })
+      })
+
+      $("button#re").on("click", function(e){
+        e.preventDefault();
+        TweenMax.to($('.ctn-inner img')[0], .5, {
+          opacity: 1,
+          rotationZ: 0,          
+          ease: Linear.easeNone          
+        })
+
+        TweenMax.to($('.ctn-inner img')[1], .5, {
+          opacity: 0,
+          rotationZ: -180,     
+          ease: Linear.easeNone          
+        })
+      })
+
+    })
+  </script>
+</body>
+</html>
